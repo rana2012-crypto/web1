@@ -1,0 +1,438 @@
+/* =========================================
+   Variabel warna & dasar
+   ========================================= */
+:root {
+  --biru-tua: #0b1f4d;
+  --biru: #16337a;
+  --emas: #f2c230;
+  --emas-tua: #d9a815;
+  --putih: #ffffff;
+  --abu-muda: #f4f6fb;
+  --teks: #1d2433;
+  --teks-lembut: #5a6478;
+  --merah: #c62828;
+
+  --header-h: 72px;
+  --radius: 12px;
+  --shadow: 0 6px 20px rgba(11, 31, 77, 0.12);
+  --transisi: 0.25s ease;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+}
+
+body {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--teks);
+  background: var(--putih);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* =========================================
+   Menu atas (header & navigasi)
+   ========================================= */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--biru-tua);
+  border-bottom: 3px solid var(--emas);
+  transition: box-shadow var(--transisi);
+}
+
+.header.scrolled {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.nav {
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--putih);
+}
+
+.nav-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.nav-title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.nav-title strong {
+  font-size: 1rem;
+}
+
+.nav-title small {
+  color: var(--emas);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
+
+.nav-link {
+  display: block;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: var(--putih);
+  font-weight: 500;
+  transition: background var(--transisi), color var(--transisi);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--emas);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-cta {
+  margin-left: 6px;
+  background: var(--emas);
+  color: var(--biru-tua);
+  font-weight: 600;
+}
+
+.nav-cta:hover,
+.nav-cta.active {
+  background: var(--emas-tua);
+  color: var(--biru-tua);
+}
+
+/* Tombol hamburger (hanya tampil di HP) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: var(--putih);
+  border-radius: 2px;
+  transition: transform var(--transisi), opacity var(--transisi);
+}
+
+.nav-toggle.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.nav-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* =========================================
+   Tombol
+   ========================================= */
+.btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 999px;
+  font-weight: 600;
+  border: 2px solid transparent;
+  transition: transform var(--transisi), background var(--transisi), color var(--transisi);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--emas);
+  color: var(--biru-tua);
+}
+
+.btn-primary:hover {
+  background: var(--emas-tua);
+}
+
+.btn-outline {
+  border-color: var(--putih);
+  color: var(--putih);
+}
+
+.btn-outline:hover {
+  background: var(--putih);
+  color: var(--biru-tua);
+}
+
+/* =========================================
+   Beranda (hero)
+   ========================================= */
+.hero {
+  min-height: 100vh;
+  padding: calc(var(--header-h) + 40px) 0 60px;
+  display: flex;
+  align-items: center;
+  color: var(--putih);
+  background:
+    radial-gradient(circle at 80% 30%, rgba(242, 194, 48, 0.15), transparent 45%),
+    linear-gradient(135deg, var(--biru-tua) 0%, var(--biru) 100%);
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.hero-greeting {
+  color: var(--emas);
+  font-style: italic;
+  margin-bottom: 12px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero h1 span {
+  color: var(--emas);
+}
+
+.hero-desc {
+  max-width: 560px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 32px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.hero-logo {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-logo img {
+  width: min(320px, 70vw);
+  border-radius: 50%;
+  border: 6px solid var(--emas);
+  box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.08), 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Kartu sambutan di bawah hero */
+.welcome {
+  background: var(--abu-muda);
+  padding: 60px 0;
+}
+
+.welcome-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.welcome-card {
+  background: var(--putih);
+  padding: 28px 24px;
+  border-radius: var(--radius);
+  border-top: 4px solid var(--emas);
+  box-shadow: var(--shadow);
+  transition: transform var(--transisi);
+}
+
+.welcome-card:hover {
+  transform: translateY(-4px);
+}
+
+.welcome-card h3 {
+  color: var(--biru-tua);
+  margin-bottom: 10px;
+}
+
+.welcome-card p {
+  color: var(--teks-lembut);
+}
+
+/* =========================================
+   Section umum (diisi tahap berikutnya)
+   ========================================= */
+.section {
+  padding: 80px 0;
+}
+
+.section.alt {
+  background: var(--abu-muda);
+}
+
+.section-title {
+  text-align: center;
+  color: var(--biru-tua);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin-bottom: 16px;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin: 10px auto 0;
+  background: var(--emas);
+  border-radius: 2px;
+}
+
+.placeholder-note {
+  text-align: center;
+  color: var(--teks-lembut);
+  font-style: italic;
+}
+
+/* =========================================
+   Footer
+   ========================================= */
+.footer {
+  background: var(--biru-tua);
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 24px 0;
+  border-top: 3px solid var(--emas);
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   Responsif
+   ========================================= */
+@media (max-width: 900px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 10px 20px 20px;
+    background: var(--biru-tua);
+    border-bottom: 3px solid var(--emas);
+    /* tersembunyi sampai tombol diklik */
+    max-height: 0;
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+  }
+
+  .nav-menu.open {
+    max-height: 420px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+
+  .nav-link {
+    padding: 12px 14px;
+  }
+
+  .nav-cta {
+    margin: 8px 0 0;
+    text-align: center;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-logo {
+    order: -1;
+  }
+
+  .hero-logo img {
+    width: min(200px, 55vw);
+  }
+
+  .hero-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .welcome-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .nav-title strong {
+    font-size: 0.9rem;
+  }
+
+  .nav-logo {
+    width: 40px;
+    height: 40px;
+  }
+}
