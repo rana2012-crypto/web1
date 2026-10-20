@@ -11,3 +11,6 @@ Lakukan tiga perubahan pada website, tetap hanya dengan HTML, CSS, dan JavaScrip
 
 ## Prompt 4
 Perbarui alamat di section Kontak menjadi: Jl. Awu-Awu, Dusun Kwarasan Kidul, Desa Tiru Kidul, Kecamatan Gurah, Kabupaten Kediri, Jawa Timur. Tambahkan NPSN 70040955 dan status sekolah Swasta di section Profil. Ganti tautan tombol "Buka di Google Maps" menjadi https://www.google.com/maps/search/?api=1&query=SMP+Islam+Plus+Al-Imam+Jl+Awu-Awu+Tiru+Kidul+Gurah+Kediri dan tetap buka di tab baru. Jangan mengubah bagian lain.
+
+## Prompt 5
+Samakan alamat di footer dengan alamat lengkap di section Kontak: Jl. Awu-Awu, Dusun Kwarasan Kidul, Desa Tiru Kidul, Kecamatan Gurah, Kabupaten Kediri, Jawa Timur. Jangan mengubah bagian lain.
