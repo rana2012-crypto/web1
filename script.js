@@ -36,20 +36,45 @@ window.addEventListener("scroll", () => {
 // =========================================
 const sections = document.querySelectorAll("main section[id]");
 
-const observer = new IntersectionObserver(
+function updateActiveLink() {
+  // Section aktif = section terakhir yang bagian atasnya sudah melewati
+  // sepertiga atas layar. Jika sudah di dasar halaman, pilih section terakhir.
+  const batas = window.innerHeight / 3;
+  const diDasar = window.innerHeight + window.scrollY >= document.body.scrollHeight - 2;
+  let currentId = sections[0].id;
+
+  sections.forEach((section) => {
+    if (section.getBoundingClientRect().top <= batas) currentId = section.id;
+  });
+  if (diDasar) currentId = sections[sections.length - 1].id;
+
+  navLinks.forEach((link) => {
+    link.classList.toggle("active", link.getAttribute("href") === "#" + currentId);
+  });
+}
+
+window.addEventListener("scroll", updateActiveLink, { passive: true });
+window.addEventListener("resize", updateActiveLink);
+window.addEventListener("load", updateActiveLink);
+updateActiveLink();
+
+// =========================================
+// Animasi muncul saat elemen terlihat
+// =========================================
+const revealItems = document.querySelectorAll(".reveal");
+
+const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
-      const id = entry.target.id;
-      navLinks.forEach((link) => {
-        link.classList.toggle("active", link.getAttribute("href") === "#" + id);
-      });
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
     });
   },
-  { rootMargin: "-45% 0px -50% 0px" }
+  { threshold: 0.15 }
 );
 
-sections.forEach((section) => observer.observe(section));
+revealItems.forEach((item) => revealObserver.observe(item));
 
 // =========================================
 // Tahun otomatis di footer
