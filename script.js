@@ -1,25 +1,83 @@
 // =========================================
-// Menu hamburger (tampilan HP)
+// Mode gelap / terang
+// (tema awal sudah dipasang oleh skrip kecil di <head>)
+// =========================================
+const root = document.documentElement;
+const themeToggle = document.getElementById("themeToggle");
+const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+function getSavedTheme() {
+  try {
+    return localStorage.getItem("tema");
+  } catch (e) {
+    return null;
+  }
+}
+
+function applyTheme(theme) {
+  root.setAttribute("data-theme", theme);
+  const toDark = theme !== "dark";
+  themeToggle.setAttribute("aria-label", toDark ? "Aktifkan mode gelap" : "Aktifkan mode terang");
+  themeToggle.title = toDark ? "Mode gelap" : "Mode terang";
+}
+
+applyTheme(root.getAttribute("data-theme") || (darkQuery.matches ? "dark" : "light"));
+
+themeToggle.addEventListener("click", () => {
+  const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  applyTheme(next);
+  try {
+    localStorage.setItem("tema", next);
+  } catch (e) {
+    // penyimpanan tidak tersedia (mis. mode privat) — tema tetap berganti
+  }
+});
+
+// Ikuti perubahan pengaturan perangkat selama pengguna belum memilih sendiri
+darkQuery.addEventListener("change", (e) => {
+  const saved = getSavedTheme();
+  if (saved !== "light" && saved !== "dark") applyTheme(e.matches ? "dark" : "light");
+});
+
+// =========================================
+// Menu hamburger (tampilan HP & tablet)
 // =========================================
 const navToggle = document.getElementById("navToggle");
 const navMenu = document.getElementById("navMenu");
 const navLinks = document.querySelectorAll(".nav-link");
 
+function setMenu(open) {
+  navMenu.classList.toggle("open", open);
+  navToggle.classList.toggle("open", open);
+  navToggle.setAttribute("aria-expanded", open);
+  navToggle.setAttribute("aria-label", open ? "Tutup menu" : "Buka menu");
+}
+
 navToggle.addEventListener("click", () => {
-  const isOpen = navMenu.classList.toggle("open");
-  navToggle.classList.toggle("open", isOpen);
-  navToggle.setAttribute("aria-expanded", isOpen);
-  navToggle.setAttribute("aria-label", isOpen ? "Tutup menu" : "Buka menu");
+  setMenu(!navMenu.classList.contains("open"));
 });
 
 // Tutup menu setelah salah satu link diklik
 navLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    navMenu.classList.remove("open");
-    navToggle.classList.remove("open");
-    navToggle.setAttribute("aria-expanded", "false");
-    navToggle.setAttribute("aria-label", "Buka menu");
-  });
+  link.addEventListener("click", () => setMenu(false));
+});
+
+// Tutup menu saat klik di luar menu atau menekan Esc
+document.addEventListener("click", (e) => {
+  if (!navMenu.classList.contains("open")) return;
+  if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) setMenu(false);
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && navMenu.classList.contains("open")) {
+    setMenu(false);
+    navToggle.focus();
+  }
+});
+
+// Tutup menu jika layar diperlebar ke ukuran laptop
+window.matchMedia("(min-width: 961px)").addEventListener("change", (e) => {
+  if (e.matches) setMenu(false);
 });
 
 // =========================================
