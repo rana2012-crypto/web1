@@ -493,6 +493,41 @@ a {
   color: var(--teks-lembut);
 }
 
+/* Identitas sekolah (NPSN & status) */
+.school-id {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.school-id div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 6px 16px;
+  background: var(--surface-alt);
+  border: 1px solid var(--garis);
+  border-radius: 999px;
+}
+
+.school-id dt {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--teks-lembut);
+}
+
+.school-id dd {
+  padding: 2px 14px;
+  font-weight: 700;
+  color: var(--biru-tua);
+  background: var(--emas);
+  border-radius: 999px;
+}
+
 .vision {
   position: relative;
   max-width: 860px;
