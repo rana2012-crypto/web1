@@ -23,8 +23,19 @@ function applyTheme(theme) {
 
 applyTheme(root.getAttribute("data-theme") || (darkQuery.matches ? "dark" : "light"));
 
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+let themeAnimTimer;
+
 themeToggle.addEventListener("click", () => {
   const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+
+  // Pasang transisi warna sebentar supaya pergantian tema terasa halus
+  if (!reduceMotion.matches) {
+    root.classList.add("theme-anim");
+    clearTimeout(themeAnimTimer);
+    themeAnimTimer = setTimeout(() => root.classList.remove("theme-anim"), 500);
+  }
+
   applyTheme(next);
   try {
     localStorage.setItem("tema", next);
@@ -120,6 +131,13 @@ updateActiveLink();
 // Animasi muncul saat elemen terlihat
 // =========================================
 const revealItems = document.querySelectorAll(".reveal");
+
+// Kartu yang berjajar muncul bergantian (jeda 0,1 detik per kartu)
+revealItems.forEach((item) => {
+  const siblings = [...item.parentElement.children].filter((el) => el.classList.contains("reveal"));
+  const index = siblings.indexOf(item);
+  if (index > 0) item.style.setProperty("--delay", Math.min(index, 4) * 0.1 + "s");
+});
 
 const revealObserver = new IntersectionObserver(
   (entries) => {

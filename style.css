@@ -312,11 +312,17 @@ a {
   border-radius: 999px;
   font-weight: 600;
   border: 2px solid transparent;
-  transition: transform var(--transisi), background var(--transisi), color var(--transisi);
+  transition: transform var(--transisi), background var(--transisi), color var(--transisi), box-shadow var(--transisi);
 }
 
 .btn:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
 }
 
 .btn-primary {
@@ -627,11 +633,6 @@ a {
   border: 1px solid var(--garis);
   border-top: 4px solid var(--emas);
   box-shadow: var(--shadow);
-  transition: transform var(--transisi), box-shadow var(--transisi);
-}
-
-.card:hover {
-  box-shadow: var(--shadow-hover);
 }
 
 .card-tag {
@@ -869,34 +870,101 @@ a {
 }
 
 /* =========================================
-   Animasi muncul saat digulir
-   (hanya aktif jika JavaScript berjalan)
+   Animasi
    ========================================= */
+@keyframes muncul {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Bagian halaman muncul perlahan saat di-scroll (hanya jika JavaScript berjalan).
+   Memakai animation, bukan transition, supaya efek hover tetap cepat. */
 .js .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow var(--transisi);
 }
 
 .js .reveal.visible {
   opacity: 1;
-  transform: none;
+  animation: muncul 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) var(--delay, 0s) backwards;
 }
 
-.js .card.reveal.visible:hover,
-.js .achievement.reveal.visible:hover {
+/* Isi Beranda muncul bertahap saat halaman dibuka */
+.hero-text > *,
+.hero-logo {
+  animation: muncul 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+}
+
+.hero-logo { animation-delay: 0.1s; }
+.hero-text > :nth-child(1) { animation-delay: 0.15s; }
+.hero-text > :nth-child(2) { animation-delay: 0.25s; }
+.hero-text > :nth-child(3) { animation-delay: 0.35s; }
+.hero-text > :nth-child(4) { animation-delay: 0.45s; }
+.hero-text > :nth-child(5) { animation-delay: 0.55s; }
+
+/* Efek hover lembut pada kartu */
+.fact,
+.profile-card,
+.card,
+.achievement,
+.contact-list li {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.fact:hover,
+.profile-card:hover,
+.card:hover,
+.achievement:hover,
+.contact-list li:hover {
   transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
 }
 
+/* Transisi warna yang halus saat berganti mode gelap/terang.
+   Kelas ini dipasang sebentar oleh script.js ketika tombol tema diklik. */
+html.theme-anim *,
+html.theme-anim *::before,
+html.theme-anim *::after {
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.45s ease,
+    fill 0.45s ease,
+    stroke 0.45s ease !important;
+}
+
+/* Matikan animasi bagi pengguna yang memintanya */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
   .js .reveal {
     opacity: 1;
+  }
+
+  .btn:hover,
+  .btn:active,
+  .theme-toggle:hover,
+  .fact:hover,
+  .profile-card:hover,
+  .card:hover,
+  .achievement:hover,
+  .contact-list li:hover {
     transform: none;
-    transition: none;
   }
 }
 

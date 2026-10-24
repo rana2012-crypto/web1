@@ -14,3 +14,9 @@ Perbarui alamat di section Kontak menjadi: Jl. Awu-Awu, Dusun Kwarasan Kidul, De
 
 ## Prompt 5
 Samakan alamat di footer dengan alamat lengkap di section Kontak: Jl. Awu-Awu, Dusun Kwarasan Kidul, Desa Tiru Kidul, Kecamatan Gurah, Kabupaten Kediri, Jawa Timur. Jangan mengubah bagian lain.
+
+## Prompt 6
+Tambahkan dua hal pada website, tetap hanya dengan HTML, CSS, dan JavaScript native tanpa library. (1) Pasang favicon memakai file logo.jpg yang sudah ada di folder ini, lewat tag link di bagian head index.html. (2) Tambahkan animasi halus: bagian-bagian halaman muncul perlahan saat di-scroll (fade-in), kartu dan tombol punya efek hover yang lembut, dan transisi antara mode gelap dan terang terasa halus. Hormati pengaturan "prefers-reduced-motion" supaya animasi dimatikan bagi pengguna yang memintanya. Jangan mengubah isi teks, warna utama, atau susunan yang sudah ada, dan pastikan tampilan HP tetap rapi.
+
+## Prompt 7
+Ganti favicon di bagian head index.html agar memakai file favicon.png (format PNG dengan latar transparan) yang sudah ada di folder ini, bukan logo.jpg. Jangan mengubah bagian lain.
